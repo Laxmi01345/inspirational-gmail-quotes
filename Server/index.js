@@ -104,7 +104,7 @@ app.post('/login', async (req, res) => {
 app.get("/motivational-quote", async (req, res) => {
     const result = await randomItem();
     if (result) {
-        res.json(result);
+        res.json({ quote: result.quote, author: result.author });
     } else {
         res.status(404).json({ error: "Motivational quote not found" });
     }

@@ -11,7 +11,7 @@ const randomItem=async (req,res)=>{
     
                 
                 
-                return { quote: item.quote, author: item.author };                    //  schedule.cancelJob('m-job')
+                return ({ quote: item.quote, author: item.author });                    //  schedule.cancelJob('m-job')
                 
             } else {
                 console.log("Item not found for ID:", randomId);
