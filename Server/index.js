@@ -17,7 +17,7 @@ const PORT = 4000;
 
 app.use(express.json());
 app.use(cors({
-    origin: ["https://quotegeneratorgmail.netlify.app/"],
+    origin: ["http://localhost:5173" ,"https://quotegeneratorgmail.netlify.app"],
     methods: ["GET", "POST"],
     credentials: true
 }));
@@ -60,7 +60,6 @@ async function getPosts() {
     }
 }
 getPosts();
-
 app.post('/register', async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -71,27 +70,37 @@ app.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ name, email, password: hashedPassword });
         await newUser.save();
-        res.json({ status: "ok" });
+        
+        // Generate a JWT token for the newly registered user
+        const token = jwt.sign({ email: newUser.email }, "jwt-123-key", { expiresIn: '1d' });
+        
+        // Set the token in a cookie (optional)
+        res.cookie('token', token, { httpOnly: true });
+        
+        // Return the token in the response
+        res.json({ status: "ok", token });
     } catch (error) {
-        res.status(400).json({ message: 'Alreaady registered' });
+        res.status(400).json({ message: 'Already registered' });
     }
 });
 
 app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        if (email =="" || password==""){
+        if (email ==="" || password===""){
             return res.status(400).json({ message: 'Please fill in all fields.' });
         }
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'No record exists!' });
+            return res.status(400).json({ message: 'Email is not Registered ' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
             const token = jwt.sign({ email: user.email }, "jwt-123-key", { expiresIn: '1d' });
             res.cookie('token', token, { httpOnly: true });
+            // localStorage.setItem('token', res.data.token);
+            
             return res.json({ status: "success", token });
         } else {
             return res.status(400).json( { message: 'Password is incorrect!' });
@@ -112,22 +121,37 @@ app.get("/motivational-quote", async (req, res) => {
 
 app.get('/user', async (req, res) => {
     try {
+        let userEmail;
+
+        // Check if the request contains an authorization header
         const authHeader = req.headers.authorization;
-        if (!authHeader) {
-            return res.status(401).json({ message: 'Authorization header not found' });
+        if (authHeader) {
+            // If an authorization header is found, extract the token and decode it
+            const token = authHeader.split(' ')[1];
+            const decoded = jwt.verify(token, 'jwt-123-key');
+            userEmail = decoded.email;
+        } else {
+            // If no authorization header is found, check if the request contains a query parameter for email
+            userEmail = req.query.email;
         }
-        const token = authHeader.split(' ')[1];
-        const decoded = jwt.verify(token, 'jwt-123-key');
-        const user = await User.findOne({ email: decoded.email });
+
+        // Use the userEmail to fetch the user data from the database
+        const user = await User.findOne({ email: userEmail });
+
         if (user) {
+            // If user data is found, send it back in the response
             res.json({ name: user.name, email: user.email });
         } else {
+            // If no user data is found, send a 404 error
             res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
+        // If an error occurs during processing, send a 500 error with the error message
         res.status(500).json({ message: error.message });
     }
 });
+
+
 
 app.post('/logout', (req, res) => {
     res.clearCookie('token');
