@@ -15,7 +15,7 @@ export const Navbar = ({ setlogin, Newlogin }) => {
 
     return (
      <div className="bg-blue-100 p-1">
-        <div className="flex justify-between items-center mx-32 m-2">
+        <div className="flex justify-between items-center m-2 md:mx-20">
         <div className=" rounded-full bg-white">        
             <h1 className="p-1 m-2 poppins font-bold text-blue-900 text-2xl">InspireDaily</h1>
         </div>        

@@ -35,7 +35,7 @@ const sendMail = async (users) => {
                         <footer style="text-align: right; font-size: 16px; margin-top: 10px; color: #777;">— ${author}</footer>
                     </blockquote>
                     <p style="font-size: 16px; margin-bottom: 20px; color: #555;">Wishing you a wonderful and productive day!</p>
-                    <p style="font-size: 16px; color: #555;">Best regards,<br>Laxmi Ray</p>
+                    <p style="font-size: 16px; color: #555;">Best regards,<br>Bot</p>
                 </div>
             `
             };
