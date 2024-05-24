@@ -23,12 +23,19 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
-mongoose.connect('mongodb://localhost:27017/Quotes_Generator')
-.then(() => {
-    console.log("Mongoose connected successfully!!");
-}).catch(error => {
-    console.log("Mongoose connection error:", error);
-});
+// mongoose.connect('mongodb://localhost:27017/Quotes_Generator')
+// .then(() => {
+//     console.log("Mongoose connected successfully!!");
+// }).catch(error => {
+//     console.log("Mongoose connection error:", error);
+// });
+
+const connectDb = async()=>{
+    await mongoose.connect(`mongodb+srv://laxmiray013:Od2VDLZgwHp1SzHo@quote.wmwt8op.mongodb.net/?retryWrites=true&w=majority&appName=Quote`);
+    console.log(`this db is connected with ${mongoose.connection.host}`)
+  }
+  
+  connectDb();
 
 async function getPosts() {
     try {
