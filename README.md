@@ -1,4 +1,4 @@
-# Inspirational Quotes Website
+# Inspirational Gmail Quotes 
 
 ## Table of Contents
 - [Introduction](#introduction)
