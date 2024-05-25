@@ -1,9 +1,3 @@
-If you don't want users to contribute to your project, you can adjust the README to reflect that. Additionally, you might want to use a different license or make it clear that the code is not open for modification or redistribution without permission.
-
-Here is an updated README without the "Contributing" section and with a clearer license section:
-
----
-
 # Inspirational Quotes Website
 
 ## Table of Contents
