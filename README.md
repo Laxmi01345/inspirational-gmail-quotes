@@ -69,7 +69,7 @@ This website provides users with daily inspirational quotes. Users can register 
     const { User } = require('./models/User');  // Adjust the path as necessary
     const { sendMail } = require('./utils/sendMail');  // Adjust the path as necessary
 
-    schedule.scheduleJob('20 9 * * *', async () => {
+    schedule.scheduleJob('0 9 * * *', async () => {
         try {
             const users = await User.find();
             await sendMail(users);
