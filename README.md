@@ -123,10 +123,6 @@ This website provides users with daily inspirational quotes. Users can register 
 - Deploy the backend application on Render.com.
 - Ensure the backend environment variables are set correctly in the Render.com dashboard.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
 - **GitHub:** [https://github.com/laxmi01345](https://github.com/laxmi01345)
