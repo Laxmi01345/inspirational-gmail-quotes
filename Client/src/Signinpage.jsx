@@ -26,7 +26,7 @@ export const Signinpage = () => {
       console.log({ name, email, password });
       try {
 
-          const res = await axios.post('http://localhost:4000/register', { name, email, password });
+          const res = await axios.post('https://inspirational-gmail-quotes.onrender.com/register', { name, email, password });
           if (res.data.status === "ok"){
             alert("Your Account has been Successfully Created !!");
             console.log(res.data.token)
@@ -54,7 +54,7 @@ export const Signinpage = () => {
  
    
     try {
-        const res=await axios.post('http://localhost:4000/login', { email: Signemail, password: Signpassword }, { withCredentials: true });
+        const res=await axios.post('https://inspirational-gmail-quotes.onrender.com/login', { email: Signemail, password: Signpassword }, { withCredentials: true });
         
         if (res.data.status === "success") {
           alert("You have Successfully Logged in!!");

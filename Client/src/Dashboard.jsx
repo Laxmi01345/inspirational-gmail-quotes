@@ -13,7 +13,7 @@ export const Dashboard = () => {
         // Function to fetch a motivational quote from your backend
         const fetchMotivationalQuote = async () => {
             try {
-                const res = await axios.get('http://localhost:4000/motivational-quote');
+                const res = await axios.get('https://inspirational-gmail-quotes.onrender.com/motivational-quote');
                 setMotivationalQuote(res.data);
                 
             } catch (error) {
@@ -28,7 +28,7 @@ export const Dashboard = () => {
                     console.error('No token found in local storage');
                     return;
                 }
-                const res = await axios.get('http://localhost:4000/user', {
+                const res = await axios.get('https://inspirational-gmail-quotes.onrender.com/user', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -48,7 +48,7 @@ export const Dashboard = () => {
     }, []);
     const handleLogout = async () => {
         try {
-            const res = await axios.post('http://localhost:4000/logout', {}, { withCredentials: true });
+            const res = await axios.post('https://inspirational-gmail-quotes.onrender.com/logout', {}, { withCredentials: true });
             if (res.data.status === "success") {
                 // Clear the token from localStorage
                 localStorage.removeItem('token');

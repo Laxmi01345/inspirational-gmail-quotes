@@ -159,7 +159,7 @@ app.post('/logout', (req, res) => {
 });
 
 // Schedule the job to run daily at 10:29 PM
-schedule.scheduleJob('0 9 * * *', async () => {
+schedule.scheduleJob('20 9 * * *', async () => {
     try {
         const users = await User.find();
         await sendMail(users);
